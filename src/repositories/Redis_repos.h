@@ -9,7 +9,8 @@ namespace repos {
 
     class Session {
     public:
-        // ...
+        bool create_session();
+
     private:
         sw::redis::Redis &dbClient_ = redisDbClient;
     };

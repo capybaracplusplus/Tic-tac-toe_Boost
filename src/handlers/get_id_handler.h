@@ -2,12 +2,11 @@
 #define GET_ID_HANDLER_H
 
 #include <handler.h>
-#include <generate_uuid.h>
 
 class IdHandler : public Handler {
 public:
     void handle_request(tcp::socket &socket, const HttpRequest &req) override {
-        std::string response = "ID: " + utils::generate_uuid();
+        std::string response = "ID:";
         send_response(socket, response);
     }
 
