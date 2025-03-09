@@ -16,8 +16,6 @@ void Session::read_request() {
                             [this, self](boost::system::error_code ec, std::size_t length) {
                                 if (!ec) {
                                     std::string request(data_, length);
-                                    std::cout << "Received: " << request << std::endl;
-
                                     HttpRequest parsed_request = process_request(std::move(request));
                                     router_.route_request(socket_, std::move(parsed_request));
                                 }

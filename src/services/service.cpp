@@ -11,5 +11,5 @@ GameSession service::create_game(bool is_open, std::string game_password) {
 
     // send Redis req
 
-    repos::Session().create_session();
+    //repos::Session().create_session();
 }
