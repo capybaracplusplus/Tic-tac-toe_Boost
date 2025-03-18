@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 
-struct HttpRequest {
+struct http_request {
     std::string method;
     std::string path;
     std::string version;
@@ -13,8 +13,8 @@ struct HttpRequest {
     std::string body;
 };
 
-inline HttpRequest process_request(std::string &&request) {
-    HttpRequest parsed;
+inline http_request process_request(std::string &&request) {
+    http_request parsed;
     std::istringstream request_stream(request);
     std::string line;
 

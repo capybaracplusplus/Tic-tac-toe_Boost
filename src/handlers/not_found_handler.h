@@ -1,12 +1,12 @@
 #ifndef NOTFOUNDHANDLER_H
 #define NOTFOUNDHANDLER_H
 
-#include <handler.h>
+#include <base_handler.h>
 #include <iostream>
 
-class NotFoundHandler : public Handler {
+class not_found_handler : public Handler {
 public:
-    void handle_request(tcp::socket &socket, const HttpRequest &req) override {
+    void handle_request(tcp::socket &socket, const http_request &req) override {
         std::string response_body = "404 Not Found: The requested path " + req.path + " does not exist.";
         std::string response =
                 "HTTP/1.1 404 Not Found\r\n"

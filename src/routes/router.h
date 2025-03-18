@@ -1,33 +1,21 @@
 #ifndef ROUTER_H
 #define ROUTER_H
 
-#include <handlers.h>
-#include <HttpRequest.h>
-#include <mutex>
+#include "route_registry.h"
+#include "i_route_registrar.h"
+#include <vector>
+#include <memory>
 
-class Router {
+class router {
 public:
-    Router() {
-        routes_["/"] = std::make_shared<MainHandler>();
-        routes_["/id"] = std::make_shared<IdHandler>();
-    }
+    router();
 
-    void route_request(tcp::socket &socket, HttpRequest &&req) {
-        std::lock_guard<std::mutex> lock(mutex_);
-
-        auto it = routes_.find(req.path);
-        if (it != routes_.end()) {
-            it->second->handle_request(socket, std::move(req));
-        } else {
-            NotFoundHandler not_found_handler;
-            not_found_handler.handle_request(socket, std::move(req));
-        }
-    }
+    void route_request(tcp::socket &socket, http_request &&req);
 
 private:
-    std::unordered_map<std::string, std::shared_ptr<Handler> > routes_;
-    std::mutex mutex_;
+    void register_all_routes();
+
+    route_registry routes_;
 };
 
-
-#endif //ROUTER_H
+#endif // ROUTER_H

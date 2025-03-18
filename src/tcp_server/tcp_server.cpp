@@ -1,6 +1,6 @@
-#include <server.h>
+#include <tcp_server.h>
 
-Router Session::router_;
+router Session::router_;
 
 Session::Session(tcp::socket socket)
     : socket_(std::move(socket)) {
@@ -16,7 +16,7 @@ void Session::read_request() {
                             [this, self](boost::system::error_code ec, std::size_t length) {
                                 if (!ec) {
                                     std::string request(data_, length);
-                                    HttpRequest parsed_request = process_request(std::move(request));
+                                    http_request parsed_request = process_request(std::move(request));
                                     router_.route_request(socket_, std::move(parsed_request));
                                 }
                             });

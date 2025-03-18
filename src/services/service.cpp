@@ -1,7 +1,7 @@
 #include <service.h>
-#include <Redis_repos.h>
-#include <generate_uuid.h>
-#include <jwtToken.h>
+#include <redis_repository.h>
+#include <uuid_generator.h>
+#include <jwt_token.h>
 
 GameSession service::create_game(bool is_open, std::string game_password) {
     std::string game_id = utils::generate_uuid();

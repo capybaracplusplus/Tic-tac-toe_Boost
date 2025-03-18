@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <boost/asio.hpp>
 #include <handlers.h>
-#include <HttpRequest.h>
+#include <http_request.h>
 #include <router.h>
 
 using boost::asio::ip::tcp;
@@ -22,7 +22,7 @@ private:
 private:
     tcp::socket socket_;
     char data_[1024];
-    static Router router_;
+    static router router_;
 };
 
 class Server {

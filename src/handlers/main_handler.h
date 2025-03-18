@@ -1,11 +1,11 @@
 #ifndef MAIN_HANDLER_H
 #define MAIN_HANDLER_H
 
-#include <handler.h>
+#include <base_handler.h>
 
 class MainHandler : public Handler {
 public:
-    void handle_request(tcp::socket &socket, const HttpRequest &req) override {
+    void handle_request(tcp::socket &socket, const http_request &req) override {
         std::string response =
                 "HTTP/1.1 200 OK\r\n"
                 "Content-Type: text/plain\r\n"
