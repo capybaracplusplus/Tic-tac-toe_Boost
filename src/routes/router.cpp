@@ -11,7 +11,7 @@ void router::route_request(tcp::socket &socket, http_request &&req) {
     if (handler) {
         handler->handle_request(socket, std::move(req));
     } else {
-        not_found_handler().handle_request(socket, std::move(req));
+        NotFoundHandler().handle_request(socket, std::move(req));
     }
 }
 
