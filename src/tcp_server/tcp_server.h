@@ -1,11 +1,7 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <iostream>
-#include <unordered_map>
 #include <boost/asio.hpp>
-#include <handlers.h>
-#include <http_request.h>
 #include <router.h>
 
 using boost::asio::ip::tcp;
