@@ -9,16 +9,6 @@ public:
         std::string response = "ID:";
         send_response(socket, response);
     }
-
-private:
-    void send_response(tcp::socket &socket, const std::string &response) {
-        boost::asio::async_write(socket, boost::asio::buffer(response),
-                                 [](boost::system::error_code ec, std::size_t /*length*/) {
-                                     if (!ec) {
-                                         std::cout << "Response sent" << std::endl;
-                                     }
-                                 });
-    }
 };
 
 

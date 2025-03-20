@@ -17,19 +17,6 @@ public:
                 response_body;
         send_response(socket, response);
     }
-
-private:
-    void send_response(tcp::socket &socket, const std::string &response) {
-        auto buffer = std::make_shared<std::string>(std::move(response));
-        boost::asio::async_write(socket, boost::asio::buffer(*buffer),
-                                 [buffer](boost::system::error_code ec, std::size_t /*length*/) {
-                                     if (!ec) {
-                                         std::cout << "Response sent: " << *buffer << std::endl;
-                                     } else {
-                                         std::cerr << "Error sending response: " << ec.message() << std::endl;
-                                     }
-                                 });
-    }
 };
 
 
