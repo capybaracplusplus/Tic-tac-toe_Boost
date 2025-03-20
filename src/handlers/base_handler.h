@@ -1,6 +1,7 @@
 #ifndef HANDLER_H
 #define HANDLER_H
 
+#include<iostream>
 #include <string>
 #include <http_request.h>
 #include <boost/asio.hpp>

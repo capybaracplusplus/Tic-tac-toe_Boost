@@ -8,7 +8,7 @@ public:
         response.set_status(200);
         response.set_header("Content-Type", "text/plain");
         response.set_header("Connection", "close");
-        response.set_body("aboba");
+        response.set_body("RemoveGameHandler");
         send_response(socket, response.to_string());
     }
 };

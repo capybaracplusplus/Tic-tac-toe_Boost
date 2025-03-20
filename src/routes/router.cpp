@@ -18,7 +18,8 @@ void router::route_request(tcp::socket &socket, http_request &&req) {
 void router::register_all_routes() {
     std::vector<std::shared_ptr<i_route_registrar>> route_modules = {
         std::make_shared<MainRoutes>(),
-        std::make_shared<IdRoutes>()
+        std::make_shared<GameRoutes>(),
+        std::make_shared<MoveRoutes>(),
     };
 
     for (const auto &module : route_modules) {
