@@ -8,7 +8,12 @@ public:
     void register_routes(route_registry &registry) override;
 };
 
-class IdRoutes : public i_route_registrar {
+class GameRoutes  : public i_route_registrar {
+public:
+    void register_routes(route_registry &registry) override;
+};
+
+class MoveRoutes : public i_route_registrar {
 public:
     void register_routes(route_registry &registry) override;
 };
