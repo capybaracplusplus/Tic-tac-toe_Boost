@@ -2,9 +2,6 @@
 #define ROUTER_H
 
 #include "route_registry.h"
-#include "i_route_registrar.h"
-#include <vector>
-#include <memory>
 
 class router {
 public:
