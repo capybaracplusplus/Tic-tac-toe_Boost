@@ -1,6 +1,7 @@
 #include <not_found_handler.h>
 
-void NotFoundHandler::handle_request(tcp::socket &socket, const http_request &req) {
+void NotFoundHandler::handle_request(boost::asio::io_context &io_context, tcp::socket &socket,
+                                     const http_request &req) {
     std::string response_body = "404 Not Found: The requested path " + req.path + " does not exist.";
     std::string response =
             "HTTP/1.1 404 Not Found\r\n"
@@ -9,5 +10,5 @@ void NotFoundHandler::handle_request(tcp::socket &socket, const http_request &re
             "Connection: close\r\n"
             "\r\n" +
             response_body;
-    send_response(socket, response);
+    send_response(io_context, socket, response);
 }

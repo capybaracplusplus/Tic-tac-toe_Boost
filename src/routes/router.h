@@ -7,7 +7,7 @@ class router {
 public:
     router();
 
-    void route_request(tcp::socket &socket, http_request &&req);
+    void route_request(boost::asio::io_context &io_context, tcp::socket &socket, http_request &&req);
 
 private:
     void register_all_routes();
