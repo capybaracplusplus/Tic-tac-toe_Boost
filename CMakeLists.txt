@@ -12,8 +12,10 @@ add_executable(Tic_Tac_Toe_Boost
         src/services/service.cpp
 
         src/utils/jwt_token.h
+        src/utils/jwt_token.cpp
         src/utils/uuid_generator.h
         src/utils/http_request.h
+        src/utils/http_request.cpp
         src/utils/http_response.h
         src/utils/http_response.cpp
 
@@ -51,7 +53,14 @@ add_executable(Tic_Tac_Toe_Boost
 )
 
 # <---------------------------- Include Directories ---------------------------->
-file(GLOB_RECURSE HANDLER_DIRS LIST_DIRECTORIES true ${CMAKE_SOURCE_DIR}/src/handlers/*)
+file(GLOB_RECURSE HANDLER_HEADERS ${CMAKE_SOURCE_DIR}/src/handlers/*.h)
+
+set(HANDLER_DIRS "")
+foreach(header ${HANDLER_HEADERS})
+    get_filename_component(dir ${header} DIRECTORY)
+    list(APPEND HANDLER_DIRS ${dir})
+endforeach()
+list(REMOVE_DUPLICATES HANDLER_DIRS)
 
 target_include_directories(Tic_Tac_Toe_Boost PRIVATE
         ${HANDLER_DIRS}
