@@ -3,15 +3,16 @@
 
 #include <string>
 #include <unordered_map>
-#include <sstream>
 
 class HttpResponse {
 public:
     explicit HttpResponse(int status = 200);
 
     void set_status(int code);
-    void set_header(const std::string& key, const std::string& value);
-    void set_body(const std::string& body);
+
+    void set_header(const std::string &key, const std::string &value);
+
+    void set_body(const std::string &body);
 
     std::string to_string() const;
 
