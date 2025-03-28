@@ -7,7 +7,7 @@
 
 namespace utils {
     inline std::string generate_uuid() {
-        static boost::uuids::random_generator generator;
+        boost::uuids::random_generator generator;
         boost::uuids::uuid uuid = generator();
         return boost::uuids::to_string(uuid);
     }

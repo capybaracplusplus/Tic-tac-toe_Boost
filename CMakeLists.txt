@@ -7,49 +7,29 @@ set(CMAKE_CXX_STANDARD 23)
 # <----------------------------- Add Executable ----------------------------->
 add_executable(Tic_Tac_Toe_Boost
         src/main.cpp
-
-        src/services/service.h
-        src/services/service.cpp
-
-        src/utils/jwt_token.h
-        src/utils/jwt_token.cpp
         src/utils/uuid_generator.h
-        src/utils/http_request.h
-        src/utils/http_request.cpp
-        src/utils/http_response.h
-        src/utils/http_response.cpp
-
-        src/tcp_server/tcp_server.h
-        src/tcp_server/tcp_server.cpp
-
-        src/repositories/redis_repository.h
-        src/repositories/redis_repository.cpp
-
-        src/routes/Router.h
-        src/routes/Router.cpp
+        src/utils/jwt_token.h src/utils/jwt_token.cpp
+        src/utils/http_request.h src/utils/http_request.cpp
+        src/utils/http_response.h src/utils/http_response.cpp
+        src/tcp_server/tcp_server.h src/tcp_server/tcp_server.cpp
+        src/session_manager/session_manager.h src/session_manager/session_manager.cpp
+        src/session/session.cpp src/session/session.h
+        src/routes/Router.h src/routes/Router.cpp
         src/routes/i_route_registrar.h
-        src/routes/route_registry.h
-        src/routes/route_registry.cpp
-        src/routes/Routes.h
-        src/routes/Routes.cpp
-
-        src/handlers/game/create_game_handler.h
-        src/handlers/game/create_game_handler.cpp
-        src/handlers/game/join_game_handler.h
-        src/handlers/game/join_game_handler.cpp
-        src/handlers/game/remove_game_handler.h
-        src/handlers/game/remove_game_handler.cpp
+        src/routes/route_registry.h src/routes/route_registry.cpp
+        src/routes/Routes.h src/routes/Routes.cpp
+        src/handlers/game/create_game_handler.h src/handlers/game/create_game_handler.cpp
+        src/handlers/game/join_game_handler.h src/handlers/game/join_game_handler.cpp
+        src/handlers/game/remove_game_handler.h src/handlers/game/remove_game_handler.cpp
         src/handlers/game/game_handlers.h
-        src/handlers/move/make_move_handler.h
-        src/handlers/move/make_move_handler.cpp
+        src/handlers/move/make_move_handler.h src/handlers/move/make_move_handler.cpp
         src/handlers/move/move_handlers.h
-        src/handlers/main_handler.h
-        src/handlers/main_handler.cpp
-        src/handlers/not_found_handler.h
-        src/handlers/not_found_handler.cpp
-        src/handlers/base_handler.h
-        src/handlers/base_handler.cpp
+        src/handlers/main_handler.h src/handlers/main_handler.cpp
+        src/handlers/not_found_handler.h src/handlers/not_found_handler.cpp
+        src/handlers/base_handler.h src/handlers/base_handler.cpp
         src/handlers/handlers.h
+        src/services/service.h src/services/service.cpp
+        src/repositories/redis_repository.h src/repositories/redis_repository.cpp
 )
 
 # <---------------------------- Include Directories ---------------------------->
@@ -67,6 +47,8 @@ target_include_directories(Tic_Tac_Toe_Boost PRIVATE
         ${CMAKE_SOURCE_DIR}/src/handlers
         ${CMAKE_SOURCE_DIR}/src/services
         ${CMAKE_SOURCE_DIR}/src/utils
+        ${CMAKE_SOURCE_DIR}/src/session
+        ${CMAKE_SOURCE_DIR}/src/session_manager
         ${CMAKE_SOURCE_DIR}/src/tcp_server
         ${CMAKE_SOURCE_DIR}/src/routes
         ${CMAKE_SOURCE_DIR}/src/repositories
