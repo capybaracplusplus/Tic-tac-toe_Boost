@@ -1,4 +1,5 @@
 #include <session.h>
+#include <iostream>
 
 router Session::router_;
 
@@ -16,7 +17,7 @@ void Session::set_uuid(std::string uuid) {
 
 void Session::read_request() {
     auto self = shared_from_this();
-    socket_.async_read_some(boost::asio::buffer(data_, 1024),
+    socket_.async_read_some(boost::asio::buffer(data_, 8192),
                             [this, self](boost::system::error_code ec, std::size_t length) {
                                 if (!ec) {
                                     std::string request(data_, length);
