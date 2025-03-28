@@ -1,16 +1,29 @@
 #ifndef HTTPREQUEST_H
 #define HTTPREQUEST_H
 
-#include <unordered_map>
-#include <string>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+
+struct Json {
+    Json(std::string body) : ss(body) {
+        boost::property_tree::read_json(ss, pt);
+    }
+
+    std::string get(const std::string &req) const {
+        return pt.get<std::string>(req);
+    }
+
+    std::stringstream ss;
+    boost::property_tree::ptree pt;
+};
 
 struct http_request {
     std::string uuid;
     std::string method;
     std::string path;
     std::string version;
-    std::unordered_map<std::string, std::string> headers;
-    std::string body;
+    Json headers;
+    Json body;
 };
 
 http_request process_request(std::string &&request);

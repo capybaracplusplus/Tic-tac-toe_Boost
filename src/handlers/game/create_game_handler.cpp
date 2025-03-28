@@ -3,6 +3,9 @@
 
 void CreateGameHandler::handle_request(boost::asio::io_context &io_context, tcp::socket &socket,
                                        const http_request &req) {
+    std::string password = req.body.get("password");
+    // сервис создания игр..
+
     HttpResponse response;
     response.set_status(200);
     response.set_header("Content-Type", "text/plain");
