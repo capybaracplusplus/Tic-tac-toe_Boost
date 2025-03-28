@@ -28,7 +28,10 @@ add_executable(Tic_Tac_Toe_Boost
         src/handlers/not_found_handler.h src/handlers/not_found_handler.cpp
         src/handlers/base_handler.h src/handlers/base_handler.cpp
         src/handlers/handlers.h
-        src/services/service.h src/services/service.cpp
+        src/services/game_service.h src/services/game_service.cpp
+        src/services/move_service.h src/services/move_service.cpp
+        src/services/matchmaking_service.h src/services/matchmaking_service.cpp
+        src/services/notification_service.h src/services/notification_service.cpp
         src/repositories/redis_repository.h src/repositories/redis_repository.cpp
 )
 

@@ -1,5 +1,5 @@
-#ifndef SERVICE_H
-#define SERVICE_H
+#ifndef GAME_SERVICE_H
+#define GAME_SERVICE_H
 
 #include <string>
 
@@ -24,7 +24,7 @@ UUID_game: {
 
  */
 
-class service {
+class GameService {
 public:
     static GameSession create_game(bool is_open = true, std::string game_password = "");
 
@@ -35,5 +35,4 @@ public:
     static std::string make_a_move(std::string id);
 };
 
-
-#endif //SERVICE_H
+#endif //GAME_SERVICE_H
