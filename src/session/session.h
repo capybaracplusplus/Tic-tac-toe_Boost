@@ -20,7 +20,7 @@ private:
 private:
     tcp::socket socket_;
     boost::asio::io_context &io_context_;
-    char data_[8192];
+    boost::asio::streambuf buffer_;
     static router router_;
     std::string uuid_;
 };
