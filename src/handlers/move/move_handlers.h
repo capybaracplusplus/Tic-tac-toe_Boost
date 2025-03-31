@@ -3,4 +3,4 @@
 
 #include <make_move_handler.h>
 
-#endif //MOVE_HANDLERS_H
+#endif // MOVE_HANDLERS_H

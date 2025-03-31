@@ -8,15 +8,15 @@ class Session;
 
 class SessionManager {
 public:
-    std::string addSession(const std::shared_ptr<Session> &session);
+  std::string addSession(const std::shared_ptr<Session> &session);
 
-    std::shared_ptr<Session> getSession(const std::string &uuid);
+  std::shared_ptr<Session> getSession(const std::string &uuid);
 
-    void removeSession(const std::string &uuid);
+  void removeSession(const std::string &uuid);
 
 private:
-    std::unordered_map<std::string, std::shared_ptr<Session> > sessions_;
-    std::mutex mutex_;
+  std::unordered_map<std::string, std::shared_ptr<Session>> sessions_;
+  std::mutex mutex_;
 };
 
-#endif //SESSION_MANAGER_H
+#endif // SESSION_MANAGER_H

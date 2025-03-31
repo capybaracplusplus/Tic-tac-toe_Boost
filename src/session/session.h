@@ -8,21 +8,21 @@ using boost::asio::ip::tcp;
 
 class Session : public std::enable_shared_from_this<Session> {
 public:
-    explicit Session(boost::asio::io_context &io_context, tcp::socket socket);
+  explicit Session(boost::asio::io_context &io_context, tcp::socket socket);
 
-    void start();
+  void start();
 
-    void set_uuid(std::string uuid);
-
-private:
-    void read_request();
+  void set_uuid(std::string uuid);
 
 private:
-    tcp::socket socket_;
-    boost::asio::io_context &io_context_;
-    boost::asio::streambuf buffer_;
-    static router router_;
-    std::string uuid_;
+  void read_request();
+
+private:
+  tcp::socket socket_;
+  boost::asio::io_context &io_context_;
+  boost::asio::streambuf buffer_;
+  static router router_;
+  std::string uuid_;
 };
 
-#endif //SESSION_H
+#endif // SESSION_H

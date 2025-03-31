@@ -3,17 +3,16 @@
 
 #include <sw/redis++/redis++.h>
 
-
 namespace repos {
-    extern sw::redis::Redis redisDbClient;
+extern sw::redis::Redis redisDbClient;
 
-    class Session {
-    public:
-        bool create_session();
+class Session {
+public:
+  bool create_session();
 
-    private:
-        sw::redis::Redis &dbClient_ = redisDbClient;
-    };
-}
+private:
+  sw::redis::Redis &dbClient_ = redisDbClient;
+};
+} // namespace repos
 
-#endif //REDIS_REPOS_H
+#endif // REDIS_REPOS_H

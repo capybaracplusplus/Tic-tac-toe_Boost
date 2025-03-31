@@ -4,8 +4,8 @@
 #include <string>
 
 struct GameSession {
-    std::string game_id;
-    std::string key;
+  std::string game_id;
+  std::string key;
 };
 
 /*
@@ -26,13 +26,15 @@ UUID_game: {
 
 class GameService {
 public:
-    static GameSession create_game(bool is_open = true, std::string game_password = "");
+  static GameSession create_game(bool is_open = true,
+                                 std::string game_password = "");
 
-    static GameSession join_game(std::string game_id, std::string game_password = "");
+  static GameSession join_game(std::string game_id,
+                               std::string game_password = "");
 
-    static std::string remove_game(std::string id);
+  static std::string remove_game(std::string id);
 
-    static std::string make_a_move(std::string id);
+  static std::string make_a_move(std::string id);
 };
 
-#endif //GAME_SERVICE_H
+#endif // GAME_SERVICE_H

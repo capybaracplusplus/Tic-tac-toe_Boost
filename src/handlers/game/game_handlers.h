@@ -5,4 +5,4 @@
 #include <join_game_handler.h>
 #include <remove_game_handler.h>
 
-#endif //GAME_HANDLERS_H
+#endif // GAME_HANDLERS_H
