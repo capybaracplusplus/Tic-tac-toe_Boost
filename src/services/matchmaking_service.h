@@ -2,6 +2,7 @@
 #define MATCHMAKING_SERVICE_H
 
 #include <boost/asio/io_service.hpp>
+#include <string>
 
 struct MatchmakingSesion {
   // key to check that the player has access to this game by uuid

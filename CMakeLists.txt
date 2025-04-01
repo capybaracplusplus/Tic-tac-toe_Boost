@@ -33,6 +33,7 @@ add_executable(Tic_Tac_Toe_Boost
         src/services/matchmaking_service.h src/services/matchmaking_service.cpp
         src/services/notification_service.h src/services/notification_service.cpp
         src/repositories/matchmaking_repository.h src/repositories/matchmaking_repository.cpp
+        src/repositories/game_repository.h src/repositories/game_repository.cpp
 )
 
 # <---------------------------- Include Directories ---------------------------->
