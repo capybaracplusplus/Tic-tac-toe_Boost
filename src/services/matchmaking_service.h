@@ -21,7 +21,8 @@ public:
                             const std::string &creator_uuid,
                             const std::string &game_password) noexcept(false);
 
-  static void remove_game(std::string game_uuid, std::string creator_key);
+  static void remove_game(std::string game_uuid,
+                          std::string creator_key) noexcept(false);
 
   static MatchmakingSesion join(boost::asio::io_context &io_context,
                                 const std::string &creator_uuid,
