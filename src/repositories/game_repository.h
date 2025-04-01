@@ -1,8 +1,8 @@
 #ifndef GAME_REPOSITORY_H
 #define GAME_REPOSITORY_H
 
-namespace redis_repos::game {
 #include <sw/redis++/redis++.h>
+namespace redis_repos::game {
 
 extern sw::redis::Redis redisDbClient;
 

@@ -1,8 +1,8 @@
 #ifndef REDIS_REPOS_MATCHMAKING_H
 #define REDIS_REPOS_MATCHMAKING_H
 
-namespace redis_repos::matchmaking {
 #include <sw/redis++/redis++.h>
+namespace redis_repos::matchmaking {
 
 extern sw::redis::Redis redisDbClient;
 

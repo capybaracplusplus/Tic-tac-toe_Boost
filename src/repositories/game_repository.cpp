@@ -7,5 +7,7 @@ GameRepository::GameRepository(sw::redis::Redis &DbClient) noexcept
     : dbClient_(DbClient) {}
 
 std::optional<std::string>
-GameRepository::find(const std::string &uuid) noexcept {}
+GameRepository::find(const std::string &uuid) noexcept {
+  return std::optional<std::string>();
+}
 } // namespace redis_repos::game

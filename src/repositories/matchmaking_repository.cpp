@@ -4,7 +4,8 @@
 namespace redis_repos::matchmaking {
 sw::redis::Redis redisDbClient = sw::redis::Redis("tcp://127.0.0.1:8081");
 
-MatchmakingRepository::MatchmakingRepository(sw::redis::Redis &DbClient)
+MatchmakingRepository::MatchmakingRepository(
+    sw::redis::Redis &DbClient) noexcept
     : dbClient_(DbClient) {}
 
 void MatchmakingRepository::add(
