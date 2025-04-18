@@ -1,7 +1,9 @@
 #ifndef GAME_REPOSITORY_H
 #define GAME_REPOSITORY_H
 
+#include <matchmaking_sesion.h>
 #include <sw/redis++/redis++.h>
+
 namespace redis_repos::game {
 
 extern sw::redis::Redis redisDbClient;
@@ -9,6 +11,10 @@ extern sw::redis::Redis redisDbClient;
 class GameRepository {
 public:
   GameRepository(sw::redis::Redis &DbClient = redisDbClient) noexcept;
+
+  void add(const MatchmakingSesion &) noexcept;
+
+  bool remove(void) noexcept(false);
 
   std::optional<std::string> find(const std::string &uuid) noexcept;
 

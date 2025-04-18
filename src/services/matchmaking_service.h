@@ -2,16 +2,8 @@
 #define MATCHMAKING_SERVICE_H
 
 #include <boost/asio/io_service.hpp>
+#include <matchmaking_sesion.h>
 #include <string>
-
-struct MatchmakingSesion {
-  // key to check that the player has access to this game by uuid
-  std::string game_uuid;
-  std::string creator_uuid;
-  std::string creator_key;
-  std::string joining_uuid;
-  std::string joining_key;
-};
 
 class MatchmakingService {
 public:

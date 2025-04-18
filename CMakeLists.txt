@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 23)
 # <----------------------------- Add Executable ----------------------------->
 add_executable(Tic_Tac_Toe_Boost
         src/main.cpp
-        src/utils/uuid_generator.h
+        src/utils/uuid_generator.h src/utils/matchmaking_sesion.h
         src/utils/jwt_token.h src/utils/jwt_token.cpp
         src/utils/http_request.h src/utils/http_request.cpp
         src/utils/http_response.h src/utils/http_response.cpp

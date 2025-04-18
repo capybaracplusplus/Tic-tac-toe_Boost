@@ -2,13 +2,14 @@
 #define SERVER_H
 
 #include <boost/asio.hpp>
+#include <memory>
 #include <session_manager.h>
 
 using boost::asio::ip::tcp;
 
 class Server {
 public:
-  Server(boost::asio::io_context &io_context, short port);
+  explicit Server(boost::asio::io_context &io_context, short port);
 
 private:
   tcp::acceptor acceptor_;

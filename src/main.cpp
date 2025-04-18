@@ -5,10 +5,10 @@ int main() try {
   boost::asio::io_context io_context;
   Server server(io_context, 8080);
 
-  unsigned num_threads = std::thread::hardware_concurrency();
+  size_t num_threads = std::thread::hardware_concurrency();
   std::vector<std::thread> threads;
 
-  for (unsigned i = 0; i < num_threads; ++i) {
+  for (size_t i = 0; i < num_threads; ++i) {
     threads.emplace_back([&io_context]() { io_context.run(); });
   }
 
