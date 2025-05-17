@@ -1,4 +1,4 @@
-#include <matchmaking_repository.h>
+#include <repositories/matchmaking_repository.h>
 #include <string>
 
 namespace redis_repos::matchmaking {

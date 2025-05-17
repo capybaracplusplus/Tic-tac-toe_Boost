@@ -1,7 +1,7 @@
 #ifndef ROUTER_H
 #define ROUTER_H
 
-#include "route_registry.h"
+#include <routes/route_registry.h>
 
 class router {
 public:

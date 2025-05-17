@@ -1,6 +1,6 @@
-#include "router.h"
-#include "routes.h"
-#include <handlers.h>
+#include <handlers/handlers.h>
+#include <routes/router.h>
+#include <routes/routes.h>
 
 router::router() { register_all_routes(); }
 

@@ -1,7 +1,7 @@
 #ifndef NOTFOUNDHANDLER_H
 #define NOTFOUNDHANDLER_H
 
-#include <base_handler.h>
+#include <handlers/base_handler.h>
 
 class NotFoundHandler : public Handler {
 public:

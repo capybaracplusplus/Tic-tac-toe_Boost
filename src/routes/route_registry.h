@@ -1,11 +1,11 @@
 #ifndef ROUTE_REGISTRY_H
 #define ROUTE_REGISTRY_H
 
-#include <handlers.h>
-#include <http_request.h>
+#include <handlers/handlers.h>
 #include <memory>
 #include <mutex>
 #include <unordered_map>
+#include <utils/http_request.h>
 
 class route_registry {
 public:

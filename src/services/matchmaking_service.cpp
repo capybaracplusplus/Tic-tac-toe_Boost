@@ -1,11 +1,11 @@
-#include <game_repository.h>
-#include <jwt_token.h>
-#include <matchmaking_repository.h>
-#include <matchmaking_service.h>
 #include <nlohmann/json.hpp>
+#include <repositories/game_repository.h>
+#include <repositories/matchmaking_repository.h>
+#include <services/matchmaking_service.h>
 #include <stdexcept>
 #include <string>
-#include <uuid_generator.h>
+#include <utils/jwt_token.h>
+#include <utils/uuid_generator.h>
 
 MatchmakingService::creator_key
 MatchmakingService::create(boost::asio::io_context &io_context,
@@ -14,7 +14,7 @@ MatchmakingService::create(boost::asio::io_context &io_context,
   using redis_repos::matchmaking::MatchmakingRepository;
   MatchmakingRepository matchmaking_repos;
   auto match = matchmaking_repos.find(creator_uuid);
-  if (!match.has_value()) {
+  if (match.has_value()) {
     throw std::runtime_error("match search is already happening");
   }
   std::string creator_key = utils::JWTToken::create(utils::generate_uuid());
@@ -43,7 +43,7 @@ MatchmakingService::join(boost::asio::io_context &io_context,
   MatchmakingRepository matchmaking_repos;
 
   auto match = matchmaking_repos.find(creator_uuid);
-  if (match.has_value()) {
+  if (!match.has_value()) {
     throw std::runtime_error(
         "the player you are trying to connect to is not looking for a game");
   }

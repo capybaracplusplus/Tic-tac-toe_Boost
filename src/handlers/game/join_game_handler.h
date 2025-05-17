@@ -1,7 +1,7 @@
 #ifndef JOIN_GAME_HANDLER_H
 #define JOIN_GAME_HANDLER_H
 
-#include <base_handler.h>
+#include <handlers/base_handler.h>
 
 class JoinGameHandler : public Handler {
 public:

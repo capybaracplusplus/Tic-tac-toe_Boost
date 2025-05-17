@@ -2,8 +2,8 @@
 #define MATCHMAKING_SERVICE_H
 
 #include <boost/asio/io_service.hpp>
-#include <matchmaking_sesion.h>
 #include <string>
+#include <utils/matchmaking_sesion.h>
 
 class MatchmakingService {
 public:

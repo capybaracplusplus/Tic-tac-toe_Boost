@@ -1,5 +1,5 @@
-#include <http_response.h>
-#include <join_game_handler.h>
+#include <handlers/game/join_game_handler.h>
+#include <utils/http_response.h>
 
 void JoinGameHandler::handle_request(boost::asio::io_context &io_context,
                                      tcp::socket &socket,

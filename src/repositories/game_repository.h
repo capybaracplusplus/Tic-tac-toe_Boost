@@ -1,8 +1,8 @@
 #ifndef GAME_REPOSITORY_H
 #define GAME_REPOSITORY_H
 
-#include <matchmaking_sesion.h>
 #include <sw/redis++/redis++.h>
+#include <utils/matchmaking_sesion.h>
 
 namespace redis_repos::game {
 

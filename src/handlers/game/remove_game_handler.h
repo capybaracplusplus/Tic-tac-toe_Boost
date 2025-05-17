@@ -1,7 +1,7 @@
 #ifndef REMOVE_GAME_HANDLER_H
 #define REMOVE_GAME_HANDLER_H
 
-#include <base_handler.h>
+#include <handlers/base_handler.h>
 
 class RemoveGameHandler : public Handler {
 public:

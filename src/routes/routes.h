@@ -1,7 +1,7 @@
 #ifndef ROUTES_H
 #define ROUTES_H
 
-#include "i_route_registrar.h"
+#include <routes/i_route_registrar.h>
 
 class MainRoutes : public i_route_registrar {
 public:

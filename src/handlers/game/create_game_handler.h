@@ -1,7 +1,7 @@
 #ifndef CREATE_GAME_HANDLER_H
 #define CREATE_GAME_HANDLER_H
 
-#include <base_handler.h>
+#include <handlers/base_handler.h>
 
 class CreateGameHandler : public Handler {
 public:

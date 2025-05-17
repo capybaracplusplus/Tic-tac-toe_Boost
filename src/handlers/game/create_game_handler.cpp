@@ -1,8 +1,9 @@
 #include <boost/log/sources/record_ostream.hpp>
-#include <create_game_handler.h>
-#include <http_response.h>
-#include <matchmaking_service.h>
+#include <handlers/game/create_game_handler.h>
 #include <nlohmann/json.hpp>
+#include <services/matchmaking_service.h>
+#include <utils/http_request.h>
+#include <utils/http_response.h>
 
 using json = nlohmann::json;
 

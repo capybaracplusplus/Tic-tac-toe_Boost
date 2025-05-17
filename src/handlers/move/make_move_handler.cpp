@@ -1,6 +1,6 @@
 #include <boost/io/ios_state.hpp>
-#include <http_response.h>
-#include <make_move_handler.h>
+#include <handlers/move/make_move_handler.h>
+#include <utils/http_response.h>
 
 void MakeMoveHandler::handle_request(boost::asio::io_context &io_context,
                                      tcp::socket &socket,

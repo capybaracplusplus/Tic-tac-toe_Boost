@@ -1,5 +1,5 @@
-#include <session.h>
-#include <tcp_server.h>
+#include <session/session.h>
+#include <tcp_server/tcp_server.h>
 
 namespace details {
 auto session_manager = std::make_shared<SessionManager>();

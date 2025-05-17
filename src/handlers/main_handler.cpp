@@ -1,5 +1,6 @@
-#include <http_response.h>
-#include <main_handler.h>
+#include <handlers/main_handler.h>
+#include <utils/http_request.h>
+#include <utils/http_response.h>
 
 void MainHandler::handle_request(boost::asio::io_context &io_context,
                                  tcp::socket &socket, const http_request &req) {

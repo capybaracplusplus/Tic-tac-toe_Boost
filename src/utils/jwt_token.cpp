@@ -1,5 +1,5 @@
 #include <chrono>
-#include <jwt_token.h>
+#include <utils/jwt_token.h>
 
 namespace utils {
 std::string JWTToken::create(const std::string &secretKey) noexcept {

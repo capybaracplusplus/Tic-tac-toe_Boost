@@ -1,7 +1,7 @@
 #ifndef MAIN_HANDLER_H
 #define MAIN_HANDLER_H
 
-#include <base_handler.h>
+#include <handlers/base_handler.h>
 
 class MainHandler : public Handler {
 public:

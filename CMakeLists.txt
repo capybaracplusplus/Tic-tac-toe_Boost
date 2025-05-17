@@ -48,14 +48,7 @@ list(REMOVE_DUPLICATES HANDLER_DIRS)
 
 target_include_directories(Tic_Tac_Toe_Boost PRIVATE
         ${HANDLER_DIRS}
-        ${CMAKE_SOURCE_DIR}/src/handlers
-        ${CMAKE_SOURCE_DIR}/src/services
-        ${CMAKE_SOURCE_DIR}/src/utils
-        ${CMAKE_SOURCE_DIR}/src/session
-        ${CMAKE_SOURCE_DIR}/src/session_manager
-        ${CMAKE_SOURCE_DIR}/src/tcp_server
-        ${CMAKE_SOURCE_DIR}/src/routes
-        ${CMAKE_SOURCE_DIR}/src/repositories
+        ${CMAKE_SOURCE_DIR}/src
 )
 
 # <----------------------------- Add Boost Asio and Boost.Log ----------------------------->

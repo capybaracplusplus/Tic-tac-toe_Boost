@@ -1,6 +1,6 @@
-#include "route_registry.h"
-#include <handlers.h>
-#include <routes.h>
+#include <handlers/handlers.h>
+#include <routes/route_registry.h>
+#include <routes/routes.h>
 
 void MainRoutes::register_routes(route_registry &registry) {
   registry.add_route("/", "GET", std::make_shared<MainHandler>());

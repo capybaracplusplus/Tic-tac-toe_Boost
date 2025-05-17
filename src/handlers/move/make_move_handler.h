@@ -1,7 +1,7 @@
 #ifndef MAKE_MOVE_HANDLER_H
 #define MAKE_MOVE_HANDLER_H
 
-#include <base_handler.h>
+#include <handlers/base_handler.h>
 
 class MakeMoveHandler : public Handler {
 public:

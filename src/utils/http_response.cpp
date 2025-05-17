@@ -1,5 +1,5 @@
-#include <http_response.h>
 #include <sstream>
+#include <utils/http_response.h>
 
 HttpResponse::HttpResponse(int status) : status_code(status) {
   headers["Content-Type"] = "text/plain";

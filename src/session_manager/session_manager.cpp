@@ -1,5 +1,5 @@
-#include <session_manager.h>
-#include <uuid_generator.h>
+#include <session_manager/session_manager.h>
+#include <utils/uuid_generator.h>
 
 std::string
 SessionManager::addSession(const std::shared_ptr<Session> &session) {
