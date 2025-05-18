@@ -1,14 +1,34 @@
-import requests
+import sys
+from send_func import *
 
-url = "http://127.0.0.1:8080/game/create"
-data = {
-    "password": "mysecretpassword122332133",
-    "aboba": "asd3213123s"
-}
+def  create_game_open():
+    data = {
+        "password": "Password123456789",
+    }
+    res = send_post("/game/create",data)
+    res.raise_for_status()
+    if not res.text:
+        raise ValueError("Response body is empty")
+    print(f"{GREEN}Func create_game_open is done{RESET}")
 
-with requests.Session() as session:
-    response = session.post(url, json=data)
-    print("Status code:", response.status_code)
-    print("Response body:", response.text)
+def  create_game_close():
+    data = {
+        "password": "Password123456789",
+    }
+    res = send_post("/game/create",data)
+    res.raise_for_status()
+    if not res.text:
+        raise ValueError("Response body is empty")
+    print(f"{GREEN}Func create_game_close is done{RESET}")
 
-print("easy")
+
+def main():
+    try:
+        create_game_open()
+        create_game_close()
+    except Exception as e:
+        print(f"{RED}Error: {e}{RESET}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
