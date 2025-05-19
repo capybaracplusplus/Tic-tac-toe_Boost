@@ -10,11 +10,10 @@ class MatchmakingRepository {
 public:
   MatchmakingRepository(sw::redis::Redis &DbClient = redisDbClient) noexcept;
 
-  void add(const std::string &uuid, const std::string &creator_key,
+  void add(const std::string &uuid,
            const std::string &game_password) noexcept(false);
 
-  bool remove(const std::string &uuid,
-              const std::string &creator_key) noexcept(false);
+  bool remove(const std::string &uuid) noexcept(false);
 
   std::optional<std::string> find(const std::string &uuid) noexcept;
 

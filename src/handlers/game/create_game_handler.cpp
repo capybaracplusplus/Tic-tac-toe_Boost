@@ -19,9 +19,7 @@ void CreateGameHandler::handle_request(boost::asio::io_context &io_context,
     password = req.body["password"].get<std::string>();
   }
   json res;
-  std::string creator_key =
-      MatchmakingService::create(io_context, req.uuid, password);
-  res["creator_key"] = creator_key;
+  MatchmakingService::create(io_context, req.uuid, password);
   res["game_id"] = req.uuid;
   response.set_body(res.dump());
   send_response(io_context, socket, response.to_string());

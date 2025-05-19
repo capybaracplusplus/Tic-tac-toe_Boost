@@ -7,30 +7,30 @@
 #include <utils/jwt_token.h>
 #include <utils/uuid_generator.h>
 
-MatchmakingService::creator_key
-MatchmakingService::create(boost::asio::io_context &io_context,
-                           const std::string &creator_uuid,
-                           const std::string &game_password) noexcept(false) {
-  using redis_repos::matchmaking::MatchmakingRepository;
-  MatchmakingRepository matchmaking_repos;
-  auto match = matchmaking_repos.find(creator_uuid);
-  if (match.has_value()) {
-    throw std::runtime_error("match search is already happening");
-  }
-  std::string creator_key = utils::JWTToken::create(utils::generate_uuid());
-  matchmaking_repos.add(creator_uuid, creator_key, game_password);
-  return creator_key;
+void MatchmakingService::create(
+    boost::asio::io_context &io_context, const std::string &creator_uuid,
+    const std::string &game_password) noexcept(false) {
+  std::optional<std::string> match;
+  io_context.post([&match, creator_uuid, game_password]() {
+    using redis_repos::matchmaking::MatchmakingRepository;
+    MatchmakingRepository matchmaking_repos;
+    match = matchmaking_repos.find(creator_uuid);
+    if (match.has_value()) {
+      throw std::runtime_error("match search is already happening");
+    }
+    matchmaking_repos.add(creator_uuid, game_password);
+  });
 }
 
-void MatchmakingService::remove_game(std::string game_uuid,
-                                     std::string creator_key) noexcept(false) {
+void MatchmakingService::remove_game(boost::asio::io_context &io_context,
+                                     std::string game_uuid) noexcept(false) {
   using redis_repos::matchmaking::MatchmakingRepository;
   MatchmakingRepository matchmaking_repos;
   auto match = matchmaking_repos.find(game_uuid);
   if (!match.has_value()) {
     throw std::runtime_error("match search is already happening");
   }
-  matchmaking_repos.remove(game_uuid, creator_key);
+  matchmaking_repos.remove(game_uuid);
 }
 
 MatchmakingSesion
@@ -42,21 +42,18 @@ MatchmakingService::join(boost::asio::io_context &io_context,
   using redis_repos::matchmaking::MatchmakingRepository;
   MatchmakingRepository matchmaking_repos;
 
-  auto match = matchmaking_repos.find(creator_uuid);
-  if (!match.has_value()) {
+  auto val = matchmaking_repos.find(creator_uuid);
+  if (!val.has_value()) {
     throw std::runtime_error(
         "the player you are trying to connect to is not looking for a game");
   }
 
-  nlohmann::json json_object = nlohmann::json::parse(match.value());
+  nlohmann::json json_object = nlohmann::json::parse(val.value());
   std::string game_password = json_object["password"];
   if (password != game_password) {
     throw std::runtime_error(
         "The password for the game you are trying to connect to is incorrect");
   }
-
-  std::string joining_key = utils::JWTToken::create(utils::generate_uuid());
-  std::string creator_key = utils::JWTToken::create(utils::generate_uuid());
 
   GameRepository game_repos;
   std::string game_uuid;
@@ -68,9 +65,7 @@ MatchmakingService::join(boost::asio::io_context &io_context,
 
   MatchmakingSesion new_game_session = {.game_uuid = game_uuid,
                                         .creator_uuid = creator_uuid,
-                                        .creator_key = creator_key,
-                                        .joining_uuid = joining_uuid,
-                                        .joining_key = joining_key};
+                                        .joining_uuid = joining_uuid};
 
   game_repos.add(new_game_session);
   return new_game_session;

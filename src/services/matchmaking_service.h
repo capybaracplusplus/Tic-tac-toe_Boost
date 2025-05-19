@@ -7,15 +7,12 @@
 
 class MatchmakingService {
 public:
-  using creator_key = std::string;
+  static void create(boost::asio::io_context &io_context,
+                     const std::string &creator_uuid,
+                     const std::string &game_password) noexcept(false);
 
-public:
-  static creator_key create(boost::asio::io_context &io_context,
-                            const std::string &creator_uuid,
-                            const std::string &game_password) noexcept(false);
-
-  static void remove_game(std::string game_uuid,
-                          std::string creator_key) noexcept(false);
+  static void remove_game(boost::asio::io_context &io_context,
+                          std::string game_uuid) noexcept(false);
 
   static MatchmakingSesion join(boost::asio::io_context &io_context,
                                 const std::string &creator_uuid,
