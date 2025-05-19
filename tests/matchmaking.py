@@ -1,34 +1,19 @@
-import sys
-from send_func import *
+import unittest
+from send_func import send_post
 
-def  create_game_open():
-    data = {
-        "password": "Password123456789",
-    }
-    res = send_post("/game/create",data)
-    res.raise_for_status()
-    if not res.text:
-        raise ValueError("Response body is empty")
-    print(f"{GREEN}Func create_game_open is done{RESET}")
+class GameCreationTests(unittest.TestCase):
+    def setUp(self):
+        self.password = {"password": "Password123456789"}
 
-def  create_game_close():
-    data = {
-        "password": "Password123456789",
-    }
-    res = send_post("/game/create",data)
-    res.raise_for_status()
-    if not res.text:
-        raise ValueError("Response body is empty")
-    print(f"{GREEN}Func create_game_close is done{RESET}")
+    def test_create_game_open(self):
+        res = send_post("/game/create", self.password)
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(res.text)
 
+    def test_create_game_close(self):
+        res = send_post("/game/create", self.password)
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(res.text)
 
-def main():
-    try:
-        create_game_open()
-        create_game_close()
-    except Exception as e:
-        print(f"{RED}Error: {e}{RESET}")
-        sys.exit(1)
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    unittest.main()
