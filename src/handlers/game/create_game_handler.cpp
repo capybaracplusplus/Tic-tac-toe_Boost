@@ -11,16 +11,24 @@ void CreateGameHandler::handle_request(boost::asio::io_context &io_context,
                                        tcp::socket &socket,
                                        const http_request &req) {
   HttpResponse response;
-  response.set_status(201);
   response.set_header("Content-Type", "text/plain");
-  response.set_header("Connection", "keep - alive");
+  response.set_header("Connection", "keep-alive");
   std::string password = "";
   if (req.body.contains("password")) {
     password = req.body["password"].get<std::string>();
   }
   json res;
-  MatchmakingService::create(io_context, req.uuid, password);
-  res["game_id"] = req.uuid;
-  response.set_body(res.dump());
+  try {
+    auto future = MatchmakingService::create(io_context, req.uuid, password);
+    future.get();
+    res["game_id"] = req.uuid;
+    response.set_status(201);
+    response.set_body(res.dump());
+  } catch (const std::exception &e) {
+    response.set_status(400);
+    res["error"] = e.what();
+    response.set_body(res.dump());
+  }
+
   send_response(io_context, socket, response.to_string());
 }

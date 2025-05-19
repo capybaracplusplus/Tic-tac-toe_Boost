@@ -6,7 +6,7 @@ services:
     container_name: redis_instance_1
     restart: always
     ports:
-      - "8081:8081"
+      - "8081:6379"
     volumes:
       - redis_data_1:/data
     command: redis-server --appendonly yes
@@ -18,7 +18,7 @@ services:
     container_name: redis_instance_2
     restart: always
     ports:
-      - "8082:8082"
+      - "8082:6379"
     volumes:
       - redis_data_2:/data
     command: redis-server --appendonly yes

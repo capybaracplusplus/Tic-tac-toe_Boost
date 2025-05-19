@@ -7,19 +7,29 @@
 #include <utils/jwt_token.h>
 #include <utils/uuid_generator.h>
 
-void MatchmakingService::create(
-    boost::asio::io_context &io_context, const std::string &creator_uuid,
-    const std::string &game_password) noexcept(false) {
-  std::optional<std::string> match;
-  io_context.post([&match, creator_uuid, game_password]() {
-    using redis_repos::matchmaking::MatchmakingRepository;
-    MatchmakingRepository matchmaking_repos;
-    match = matchmaking_repos.find(creator_uuid);
-    if (match.has_value()) {
-      throw std::runtime_error("match search is already happening");
+std::future<void>
+MatchmakingService::create(boost::asio::io_context &io_context,
+                           const std::string &creator_uuid,
+                           const std::string &game_password) noexcept(false) {
+  std::shared_ptr<std::promise<void>> promise_ptr =
+      std::make_shared<std::promise<void>>();
+  auto future = promise_ptr->get_future();
+
+  io_context.post([creator_uuid, game_password, promise_ptr]() {
+    try {
+      using redis_repos::matchmaking::MatchmakingRepository;
+      MatchmakingRepository matchmaking_repos;
+      auto match = matchmaking_repos.find(creator_uuid);
+      if (match.has_value()) {
+        throw std::runtime_error("match search is already happening");
+      }
+      matchmaking_repos.add(creator_uuid, game_password);
+      promise_ptr->set_value();
+    } catch (...) {
+      promise_ptr->set_exception(std::current_exception());
     }
-    matchmaking_repos.add(creator_uuid, game_password);
   });
+  return future;
 }
 
 void MatchmakingService::remove_game(boost::asio::io_context &io_context,

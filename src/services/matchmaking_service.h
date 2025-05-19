@@ -2,14 +2,15 @@
 #define MATCHMAKING_SERVICE_H
 
 #include <boost/asio/io_service.hpp>
+#include <future>
 #include <string>
 #include <utils/matchmaking_sesion.h>
 
 class MatchmakingService {
 public:
-  static void create(boost::asio::io_context &io_context,
-                     const std::string &creator_uuid,
-                     const std::string &game_password) noexcept(false);
+  static std::future<void>
+  create(boost::asio::io_context &io_context, const std::string &creator_uuid,
+         const std::string &game_password) noexcept(false);
 
   static void remove_game(boost::asio::io_context &io_context,
                           std::string game_uuid) noexcept(false);
