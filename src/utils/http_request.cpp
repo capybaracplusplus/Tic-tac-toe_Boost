@@ -18,7 +18,12 @@ http_request process_request(std::string &&request) {
   // Если нашли разделитель заголовков и тела
   if (header_end != std::string::npos) {
     std::string body = request.substr(header_end + delimiter_size);
-    parsed_request.body = nlohmann::json::parse(body);
+    if (!body.empty()) {
+      parsed_request.body = nlohmann::json::parse(body);
+    } else {
+      parsed_request.body =
+          Json::object(); // или Json(); или просто ничего не делать
+    }
   }
 
   // Берём только заголовочную часть

@@ -29,18 +29,23 @@ class GameRemovalTests(unittest.TestCase):
         res_create = send_post(sessions, "/game/create", {})
         self.assertEqual(res_create.status_code, HTTPStatus.CREATED)
         data = res_create.json()
-        creator_key = data["creator_key"]
-        res_delete = send_delete("/game/remove")
+        game_id = data["game_id"]
+        res_delete = send_delete(sessions, "/game/remove")
         self.assertEqual(res_delete.status_code, HTTPStatus.OK)
-
-    def test_delete_close_game(self):
-        sessions = requests.Session()
-        res_create = send_post(sessions, "/game/create", self.password)
+        res_create = send_post(sessions, "/game/create", {})
         self.assertEqual(res_create.status_code, HTTPStatus.CREATED)
-        data = res_create.json()
-        creator_key = data["creator_key"]
-        res_delete = send_delete("/game/remove")
-        self.assertEqual(res_delete.status_code, HTTPStatus.OK)
+
+
+def test_delete_close_game(self):
+    sessions = requests.Session()
+    res_create = send_post(sessions, "/game/create", self.password)
+    self.assertEqual(res_create.status_code, HTTPStatus.CREATED)
+    data = res_create.json()
+    game_id = data["game_id"]
+    res_delete = send_delete(sessions, "/game/remove")
+    self.assertEqual(res_delete.status_code, HTTPStatus.OK)
+    res_create = send_post(sessions, "/game/create", {})
+    self.assertEqual(res_create.status_code, HTTPStatus.CREATED)
 
 
 class GameJoinTests(unittest.TestCase):

@@ -32,15 +32,17 @@ MatchmakingService::create(boost::asio::io_context &io_context,
   return future;
 }
 
-void MatchmakingService::remove_game(boost::asio::io_context &io_context,
-                                     std::string game_uuid) noexcept(false) {
-  using redis_repos::matchmaking::MatchmakingRepository;
-  MatchmakingRepository matchmaking_repos;
-  auto match = matchmaking_repos.find(game_uuid);
-  if (!match.has_value()) {
-    throw std::runtime_error("match search is already happening");
+awaitable<void>
+MatchmakingService::remove_game(boost::asio::io_context &io_context,
+                                std::string game_uuid) noexcept(false) {
+  co_await asio::post(io_context, use_awaitable);
+  try {
+    using redis_repos::matchmaking::MatchmakingRepository;
+    MatchmakingRepository matchmaking_repos;
+    matchmaking_repos.remove(game_uuid);
+  } catch (...) {
+    throw;
   }
-  matchmaking_repos.remove(game_uuid);
 }
 
 MatchmakingSesion
