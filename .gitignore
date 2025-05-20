@@ -1,6 +1,5 @@
 cmake-build-debug
 .idea
-.pre-commit-config.yaml
 .venv
 **/__pycache__/
 result.log
