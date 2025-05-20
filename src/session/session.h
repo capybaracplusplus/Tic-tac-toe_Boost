@@ -12,7 +12,9 @@ public:
 
   void start();
 
-  void set_uuid(std::string uuid);
+  void set_uuid(const std::string &uuid);
+
+  void notify(const std::string &message);
 
 private:
   void read_request();

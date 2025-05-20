@@ -7,6 +7,10 @@
 
 using boost::asio::ip::tcp;
 
+namespace details {
+extern std::shared_ptr<SessionManager> session_manager;
+}
+
 class Server {
 public:
   explicit Server(boost::asio::io_context &io_context, short port);

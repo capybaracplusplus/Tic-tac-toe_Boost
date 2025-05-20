@@ -12,7 +12,24 @@ Session::Session(boost::asio::io_context &io_context, tcp::socket socket)
 
 void Session::start() { read_request(); }
 
-void Session::set_uuid(std::string uuid) { uuid_ = uuid; }
+void Session::set_uuid(const std::string &uuid) { uuid_ = uuid; }
+
+void Session::notify(const std::string &message) {
+  auto self = shared_from_this();
+  auto buffer = std::make_shared<std::string>(message);
+
+  boost::asio::async_write(
+      socket_, boost::asio::buffer(*buffer),
+      [self, buffer](boost::system::error_code ec, std::size_t /*length*/) {
+        if (!ec) {
+          BOOST_LOG_TRIVIAL(info)
+              << "Notification sent to session " << self->uuid_;
+        } else {
+          BOOST_LOG_TRIVIAL(error) << "Failed to send notification to session "
+                                   << self->uuid_ << ": " << ec.message();
+        }
+      });
+}
 
 http_request process_headers(const std::string &raw_headers) {
   http_request parsed_request;

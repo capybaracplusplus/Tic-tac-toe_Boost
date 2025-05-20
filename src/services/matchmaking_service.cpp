@@ -5,7 +5,6 @@
 #include <services/matchmaking_service.h>
 #include <stdexcept>
 #include <string>
-#include <utils/jwt_token.h>
 #include <utils/redis_client_factory.h>
 #include <utils/uuid_generator.h>
 
@@ -48,40 +47,52 @@ MatchmakingService::remove_game(boost::asio::io_context &io_context,
   }
 }
 
-MatchmakingSesion
+std::future<MatchmakingSesion>
 MatchmakingService::join(boost::asio::io_context &io_context,
                          const std::string &creator_uuid,
                          const std::string &joining_uuid,
                          const std::string &password) noexcept(false) {
-  using repositories::game::GameRepository;
-  using repositories::matchmaking::MatchmakingRepository;
-  MatchmakingRepository matchmaking_repos;
+  auto promise_ptr = std::make_shared<std::promise<MatchmakingSesion>>();
+  auto future = promise_ptr->get_future();
 
-  auto val = matchmaking_repos.find(creator_uuid);
-  if (!val.has_value()) {
-    throw std::runtime_error(
-        "the player you are trying to connect to is not looking for a game");
-  }
+  io_context.post([creator_uuid, joining_uuid, password, promise_ptr]() {
+    try {
+      using repositories::game::GameRepository;
+      using repositories::matchmaking::MatchmakingRepository;
 
-  nlohmann::json json_object = nlohmann::json::parse(val.value());
-  std::string game_password = json_object["password"];
-  if (password != game_password) {
-    throw std::runtime_error(
-        "The password for the game you are trying to connect to is incorrect");
-  }
+      MatchmakingRepository matchmaking_repos;
+      auto val = matchmaking_repos.find(creator_uuid);
+      if (!val.has_value()) {
+        throw std::runtime_error("the player you are trying to connect to is "
+                                 "not looking for a game");
+      }
 
-  GameRepository game_repos;
-  std::string game_uuid;
-  bool flag = false;
+      nlohmann::json json_object = nlohmann::json::parse(val.value());
+      std::string game_password = json_object["password"];
+      if (password != game_password) {
+        throw std::runtime_error("The password for the game you are trying to "
+                                 "connect to is incorrect");
+      }
 
-  do {
-    game_uuid = utils::generate_uuid();
-  } while (game_repos.find(game_uuid).has_value());
+      GameRepository game_repos;
+      std::string game_uuid;
+      while (true) {
+        game_uuid = utils::generate_uuid();
+        if (!game_repos.find(game_uuid).has_value()) {
+          break;
+        }
+      }
 
-  MatchmakingSesion new_game_session = {.game_uuid = game_uuid,
-                                        .creator_uuid = creator_uuid,
-                                        .joining_uuid = joining_uuid};
+      MatchmakingSesion new_game_session = {.game_uuid = game_uuid,
+                                            .creator_uuid = creator_uuid,
+                                            .joining_uuid = joining_uuid};
 
-  game_repos.add(new_game_session);
-  return new_game_session;
+      game_repos.add(new_game_session);
+      promise_ptr->set_value(new_game_session);
+    } catch (...) {
+      promise_ptr->set_exception(std::current_exception());
+    }
+  });
+
+  return future;
 }

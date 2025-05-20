@@ -3,7 +3,7 @@
 
 #include <routes/i_route_registrar.h>
 
-class MainRoutes : public i_route_registrar {
+class NotifyRoutes : public i_route_registrar {
 public:
   void register_routes(route_registry &registry) override;
 };

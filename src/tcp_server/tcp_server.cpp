@@ -2,7 +2,8 @@
 #include <tcp_server/tcp_server.h>
 
 namespace details {
-auto session_manager = std::make_shared<SessionManager>();
+std::shared_ptr<SessionManager> session_manager =
+    std::make_shared<SessionManager>();
 }
 
 Server::Server(boost::asio::io_context &io_context, short port)

@@ -2,8 +2,8 @@
 #include <routes/route_registry.h>
 #include <routes/routes.h>
 
-void MainRoutes::register_routes(route_registry &registry) {
-  registry.add_route("/", "GET", std::make_shared<MainHandler>());
+void NotifyRoutes::register_routes(route_registry &registry) {
+  registry.add_route("/notify", "GET", std::make_shared<NotifyHandler>());
 }
 
 void GameRoutes ::register_routes(route_registry &registry) {

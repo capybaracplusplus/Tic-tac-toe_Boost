@@ -16,7 +16,7 @@ void router::route_request(boost::asio::io_context &io_context,
 
 void router::register_all_routes() {
   std::vector<std::shared_ptr<i_route_registrar>> route_modules = {
-      std::make_shared<MainRoutes>(),
+      std::make_shared<NotifyRoutes>(),
       std::make_shared<GameRoutes>(),
       std::make_shared<MoveRoutes>(),
   };
