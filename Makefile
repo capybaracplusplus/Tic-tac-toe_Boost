@@ -22,5 +22,7 @@ start: clean up run_bin
 
 .PHONY: tests
 
+ROOT_DIR := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
+
 tests:
-	@$(shell cd $(dir $(realpath $(firstword $(MAKEFILE_LIST)))) && ./test_runner.sh)
+	cd $(ROOT_DIR) && ./test_runner.sh
