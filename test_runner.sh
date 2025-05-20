@@ -6,7 +6,7 @@ NC="\033[0m"
 
 echo -e "${BLUE}Running tests with unittest discover...${NC}"
 
-if python3 -m unittest discover -s tests -p "*.py"; then
+if PYTHONPATH=tests python3 -m unittest discover -s tests -p "*.py" -v; then
     echo -e "${BLUE}The tests were successful${NC}"
 else
     echo -e "${RED}Test failed!${NC}"
