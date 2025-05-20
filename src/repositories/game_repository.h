@@ -1,26 +1,25 @@
 #ifndef GAME_REPOSITORY_H
 #define GAME_REPOSITORY_H
 
-#include <sw/redis++/redis++.h>
 #include <utils/matchmaking_sesion.h>
+#include <utils/redis_client_factory.h>
 
-namespace redis_repos::game {
-
-extern sw::redis::Redis redisDbClient;
+namespace repositories::game {
 
 class GameRepository {
 public:
-  GameRepository(sw::redis::Redis &DbClient = redisDbClient) noexcept;
+  GameRepository(std::shared_ptr<sw::redis::Redis> dbClient =
+                     create_game_redis_client()) noexcept;
 
   void add(const MatchmakingSesion &) noexcept;
 
-  bool remove(void) noexcept(false);
+  bool remove(void);
 
   std::optional<std::string> find(const std::string &uuid) noexcept;
 
 private:
-  sw::redis::Redis &dbClient_;
+  std::shared_ptr<sw::redis::Redis> dbClient_;
 };
-} // namespace redis_repos::game
+} // namespace repositories::game
 
 #endif // GAME_REPOSITORY_H

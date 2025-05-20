@@ -19,3 +19,8 @@ run:
 	./cmake-build-debug/Tic_Tac_Toe_Boost
 
 start: clean up run_bin
+
+.PHONY: tests
+
+tests:
+	@$(shell cd $(dir $(realpath $(firstword $(MAKEFILE_LIST)))) && ./test_runner.sh)

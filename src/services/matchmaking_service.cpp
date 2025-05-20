@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <string>
 #include <utils/jwt_token.h>
+#include <utils/redis_client_factory.h>
 #include <utils/uuid_generator.h>
 
 std::future<void>
@@ -17,7 +18,7 @@ MatchmakingService::create(boost::asio::io_context &io_context,
 
   io_context.post([creator_uuid, game_password, promise_ptr]() {
     try {
-      using redis_repos::matchmaking::MatchmakingRepository;
+      using repositories::matchmaking::MatchmakingRepository;
       MatchmakingRepository matchmaking_repos;
       auto match = matchmaking_repos.find(creator_uuid);
       if (match.has_value()) {
@@ -37,7 +38,7 @@ MatchmakingService::remove_game(boost::asio::io_context &io_context,
                                 std::string game_uuid) noexcept(false) {
   co_await asio::post(io_context, use_awaitable);
   try {
-    using redis_repos::matchmaking::MatchmakingRepository;
+    using repositories::matchmaking::MatchmakingRepository;
     MatchmakingRepository matchmaking_repos;
     matchmaking_repos.remove(game_uuid);
   } catch (...) {
@@ -50,8 +51,8 @@ MatchmakingService::join(boost::asio::io_context &io_context,
                          const std::string &creator_uuid,
                          const std::string &joining_uuid,
                          const std::string &password) noexcept(false) {
-  using redis_repos::game::GameRepository;
-  using redis_repos::matchmaking::MatchmakingRepository;
+  using repositories::game::GameRepository;
+  using repositories::matchmaking::MatchmakingRepository;
   MatchmakingRepository matchmaking_repos;
 
   auto val = matchmaking_repos.find(creator_uuid);

@@ -10,7 +10,7 @@ void NotFoundHandler::handle_request(boost::asio::io_context &io_context,
                          "Content-Length: " +
                          std::to_string(response_body.size()) +
                          "\r\n"
-                         "Connection: close\r\n"
+                         "Connection: keep-alive\r\n"
                          "\r\n" +
                          response_body;
   send_response(io_context, socket, response);

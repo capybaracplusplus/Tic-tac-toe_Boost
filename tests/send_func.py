@@ -1,10 +1,11 @@
 import requests
 
 BASE_URL = "http://127.0.0.1:8080"
+headers = {"Connection": "keep-alive"}
 
 
 def send_post(session, endpoint: str, data: dict) -> requests.Response:
-    return session.post(f"{BASE_URL}{endpoint}", json=data)
+    return session.post(f"{BASE_URL}{endpoint}", json=data, headers=headers)
 
 
 def send_get(session, endpoint: str) -> requests.Response:
