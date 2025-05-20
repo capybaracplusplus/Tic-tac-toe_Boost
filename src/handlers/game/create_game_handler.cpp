@@ -1,4 +1,5 @@
 #include <boost/log/sources/record_ostream.hpp>
+#include <exceptions/conflict_exception.h>
 #include <handlers/game/create_game_handler.h>
 #include <nlohmann/json.hpp>
 #include <services/matchmaking_service.h>
@@ -25,8 +26,13 @@ void CreateGameHandler::handle_request(boost::asio::io_context &io_context,
     response.set_status(201);
     response.set_body(res.dump());
     response.set_header("Content-Length", std::to_string(res.dump().size()));
-  } catch (const std::exception &e) {
+  } catch (const exceptions::ConflictException &e) {
     response.set_status(409);
+    res["error"] = e.what();
+    response.set_body(res.dump());
+    response.set_header("Content-Length", std::to_string(res.dump().size()));
+  } catch (const std::exception &e) {
+    response.set_status(500);
     res["error"] = e.what();
     response.set_body(res.dump());
     response.set_header("Content-Length", std::to_string(res.dump().size()));

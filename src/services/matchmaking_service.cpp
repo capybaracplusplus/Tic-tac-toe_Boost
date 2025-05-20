@@ -1,3 +1,4 @@
+#include <exceptions/conflict_exception.h>
 #include <nlohmann/json.hpp>
 #include <repositories/game_repository.h>
 #include <repositories/matchmaking_repository.h>
@@ -22,7 +23,8 @@ MatchmakingService::create(boost::asio::io_context &io_context,
       MatchmakingRepository matchmaking_repos;
       auto match = matchmaking_repos.find(creator_uuid);
       if (match.has_value()) {
-        throw std::runtime_error("match search is already happening");
+        throw exceptions::ConflictException(
+            "match search is already happening");
       }
       matchmaking_repos.add(creator_uuid, game_password);
       promise_ptr->set_value();
